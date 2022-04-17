@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: simon
+  Date: 16.04.22
+  Time: 19:05
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Profil</title>
+</h:head>
+
+<h:body>
+    <h:panelGrid columns="2">
+        <f:facet name="header">
+            <h:outputText value="Profil"></h:outputText>
+        </f:facet>
+
+        <h:outputText value="Username"></h:outputText>
+            <h:outputText value="${profil.user.name}"></h:outputText>
+
+        <h:outputText value="Nachname"></h:outputText>
+            <h:inputText value="${profil.user.name}" required="true"></h:inputText>
+
+        <h:outputText value="Vorname"></h:outputText>
+            <h:inputText value="${profil.user.firstname}" required="true"></h:inputText>
+
+        <h:outputText value="Telefonnummer"></h:outputText>
+            <h:inputText value="${profil.user.phoneNumber}"></h:inputText>
+
+        <h:outputText value="Passwort"></h:outputText>
+            <h:inputText value="${profil.user.password}"></h:inputText>
+
+        <h:outputText value="Passwort bestätigung"></h:outputText>
+            <h:inputText value="${profil.user.confirmedPassword}"></h:inputText>
+    </h:panelGrid>
+
+    <h:commandButton action="${profil.update}" value="aktualisieren"></h:commandButton>
+    <h:commandButton action="${profil.logout}" value="logout"></h:commandButton>
+    <h:commandButton action="${profil.abort}" value="abbrechen"></h:commandButton>
+</h:body>
+
+</html>
