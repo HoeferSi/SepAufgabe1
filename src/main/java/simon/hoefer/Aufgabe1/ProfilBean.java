@@ -34,7 +34,9 @@ public class ProfilBean implements Serializable {
     }
 
     public void update() {
-        this.userService.updateUser(user);
+        if (user.isValid()) {
+            this.userService.updateUser(user);
+        }
     }
 
     public String logout() {

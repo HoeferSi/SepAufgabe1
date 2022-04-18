@@ -1,12 +1,11 @@
 package simon.hoefer.Aufgabe1;
 
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Named;
-
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
 
 
-public class UserBean implements Serializable {
+public class UserBean extends AbstractKomplexValidationBean implements Serializable {
 
     private String username;
 
@@ -14,23 +13,26 @@ public class UserBean implements Serializable {
 
     private String firstname;
 
-    private String phoneNumber;
+    private String address;
 
     private String password;
 
     private String confirmedPassword;
 
+    private Date birthdate;
+
     public UserBean() {}
 
-    public UserBean(String username, String name, String firstname, String phoneNumber,
-                    String password)
+    public UserBean(String username, String name, String firstname, String address,
+                    String password, Date birthdate)
     {
         this.username = username;
         this.name = name;
         this.firstname = firstname;
-        this.phoneNumber = phoneNumber;
+        this.address = address;
         this.password = password;
         this.confirmedPassword = password;
+        this.birthdate = birthdate;
     }
 
     public String getUsername() {
@@ -45,8 +47,8 @@ public class UserBean implements Serializable {
         return firstname;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getAddress() {
+        return address;
     }
 
     public String getPassword() {
@@ -55,6 +57,10 @@ public class UserBean implements Serializable {
 
     public String getConfirmedPassword() {
         return confirmedPassword;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
     }
 
     public void setName(String name) {
@@ -69,17 +75,31 @@ public class UserBean implements Serializable {
         this.firstname = firstname;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setConfirmedPassword(String confirmedPassword) {
         this.confirmedPassword = confirmedPassword;
     }
 
+    public void setBirthdate(Date date) {
+        this.birthdate = date;
+    }
+
+    @Override
+    public boolean isValid() {
+        if (!this.password.equals(confirmedPassword)) {
+            super.setErrorMsg("Die beiden Passwörter sind leider nicht gleich.");
+            return false;
+        }
+        super.setErrorMsg(null);
+        return true;
+    }
+
     public UserBean Clone()
     {
-        return new UserBean(this.username, this.name, this.firstname, this.phoneNumber,
-                this.password);
+        return new UserBean(this.username, this.name, this.firstname, this.address,
+                this.password, this.birthdate);
     }
 }

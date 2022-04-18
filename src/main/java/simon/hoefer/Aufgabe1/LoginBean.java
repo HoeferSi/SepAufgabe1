@@ -2,35 +2,17 @@ package simon.hoefer.Aufgabe1;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.validation.ValidationException;
 
 @Named("login")
 @RequestScoped
 public class LoginBean {
 
     public LoginBean() {}
-
-    @PostConstruct
-    public void init() {
-
-        if (userService.isUserLoggedIn())
-        {
-            try {
-                context.getExternalContext()
-                        .redirect(
-                                NavigationStringBuilder
-                                        .getLogin()
-                                        .build()
-                        );
-            }
-            catch (Exception e)
-            {
-
-            }
-        }
-    }
 
     @Inject FacesContext context;
 
@@ -61,14 +43,12 @@ public class LoginBean {
     }
 
     public String submit() {
-        if (userService.isAuthenticateUser(username, password))
-        {
-            sessionService.setUsername(username);
-            return NavigationStringBuilder
-                    .getProfil()
-                    .withRedirect()
-                    .build();
-        }
-        return null;
+        sessionService.setUsername(username);
+        return NavigationStringBuilder
+                .getProfil()
+                .withRedirect()
+                .build();
     }
+
+
 }

@@ -10,40 +10,64 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core">
 
 <h:head>
     <title>Profil</title>
 </h:head>
 
 <h:body>
+    <h:form>
     <h:panelGrid columns="2">
         <f:facet name="header">
             <h:outputText value="Profil"></h:outputText>
         </f:facet>
 
+
         <h:outputText value="Username"></h:outputText>
-            <h:outputText value="${profil.user.name}"></h:outputText>
+            <h:outputText value="#{profil.user.username}" ></h:outputText>
 
         <h:outputText value="Nachname"></h:outputText>
-            <h:inputText value="${profil.user.name}" required="true"></h:inputText>
+            <h:inputText id="nachname" value="#{profil.user.name}"
+                         required="true"
+                         requiredMessage="Bitte füllen sie ihren Nachnamen aus"></h:inputText>
 
         <h:outputText value="Vorname"></h:outputText>
-            <h:inputText value="${profil.user.firstname}" required="true"></h:inputText>
+            <h:inputText value="#{profil.user.firstname}"
+                         required="true"
+                         requiredMessage="Bitte füllen sie ihren Vornamen aus"></h:inputText>
 
-        <h:outputText value="Telefonnummer"></h:outputText>
-            <h:inputText value="${profil.user.phoneNumber}"></h:inputText>
+
+        <h:outputText value="Anschrift"></h:outputText>
+            <h:inputText value="#{profil.user.address}"
+                         required="true"
+                         requiredMessage="Bitte füllen sie ihre Anschrift aus"></h:inputText>
+
+        <h:outputText value="Geburtsdatum"></h:outputText>
+        <h:inputText value="#{profil.user.birthdate}"
+            equired="true"
+            requiredMessage="Bitte füllen sie ihre Geburtsdatum aus.">
+            <f:convertDateTime type="date" pattern="dd.MM.yyyy"></f:convertDateTime>
+        </h:inputText>
 
         <h:outputText value="Passwort"></h:outputText>
-            <h:inputText value="${profil.user.password}"></h:inputText>
+            <h:inputText value="#{profil.user.password}"
+                         required="true"
+                         requiredMessage="Bitte füllen sie ihren Passwort aus"></h:inputText>
 
         <h:outputText value="Passwort bestätigung"></h:outputText>
-            <h:inputText value="${profil.user.confirmedPassword}"></h:inputText>
+        <h:inputText  value="#{profil.user.confirmedPassword}"></h:inputText>
     </h:panelGrid>
-
-    <h:commandButton action="${profil.update}" value="aktualisieren"></h:commandButton>
-    <h:commandButton action="${profil.logout}" value="logout"></h:commandButton>
-    <h:commandButton action="${profil.abort}" value="abbrechen"></h:commandButton>
+        <h:messages style="color:red"></h:messages>
+        <c:if test="#{profil.user.errorMsg != null}">
+            <h:outputText value="#{profil.user.errorMsg}" style="color:red"></h:outputText>
+        </c:if>
+        <br/>
+    <h:commandButton action="#{profil.update}" value="aktualisieren"></h:commandButton>
+    <h:commandButton action="${profil.logout}" value="logout" immediate="true"></h:commandButton>
+    <h:commandButton action="${profil.abort}" value="abbrechen" immediate="true"></h:commandButton>
+    </h:form>
 </h:body>
 
 </html>

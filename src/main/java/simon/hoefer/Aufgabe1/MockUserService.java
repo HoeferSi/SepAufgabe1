@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,8 +23,8 @@ public class MockUserService implements UserServiceInterface, Serializable {
     private SessionService sessionService;
 
     private List<UserBean> users = List.of(
-            new UserBean("simonH","Simon","Höfer","1","keks"),
-            new UserBean("timoD","Timo", "d", "2", "wow")
+            new UserBean("simonH","Simon","Höfer","1","keks", new Date(2000,12,16)),
+            new UserBean("timoD","Timo", "d", "2", "wow", new Date(2000,11,4))
     );
 
     @Override
