@@ -2,6 +2,7 @@ package simon.hoefer.Aufgabe1;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.inject.spi.CDI;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
@@ -10,17 +11,26 @@ import jakarta.validation.ValidationException;
 
 @Named("login")
 @RequestScoped
-public class LoginBean {
+public class LoginBean extends AbstractKomplexValidationBean{
 
-    public LoginBean() {}
-
-    @Inject FacesContext context;
+    @Inject
+    private FacesContext context;
 
     @Inject
     private SessionService sessionService;
 
     @Inject
+    private InterfaceInjectionService interfacesInjection;
+
     private UserServiceInterface userService;
+
+    public LoginBean() {}
+
+    @PostConstruct
+    public void init() {
+        this.userService = interfacesInjection.getUserInterfaceService();
+    }
+
 
     private String username;
 
@@ -43,12 +53,23 @@ public class LoginBean {
     }
 
     public String submit() {
-        sessionService.setUsername(username);
-        return NavigationStringBuilder
-                .getProfil()
-                .withRedirect()
-                .build();
+        if (isValid()) {
+            sessionService.setUsername(username);
+            return NavigationStringBuilder
+                    .getProfil()
+                    .withRedirect()
+                    .build();
+        }
+        return null;
     }
 
-
+    @Override
+    public boolean isValid() {
+        if (!userService.isAuthenticateUser(username, password)) {
+            setErrorMsg("Wrong password / username");
+            return false;
+        }
+        resetErrorMsg();
+        return true;
+    }
 }

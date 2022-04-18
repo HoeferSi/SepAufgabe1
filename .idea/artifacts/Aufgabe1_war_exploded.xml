@@ -30,6 +30,8 @@
           <element id="library" level="project" name="Maven: jakarta.el:jakarta.el-api:4.0.0" />
           <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.4.2.Final" />
           <element id="library" level="project" name="Maven: org.jboss.classfilewriter:jboss-classfilewriter:1.2.5.Final" />
+          <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.3.4" />
+          <element id="library" level="project" name="Maven: org.checkerframework:checker-qual:3.5.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">

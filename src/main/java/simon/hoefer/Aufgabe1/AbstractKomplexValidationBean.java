@@ -11,5 +11,9 @@ public abstract class AbstractKomplexValidationBean {
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
     }
+
+    public void resetErrorMsg(){
+        this.errorMsg = null;
+    }
     public abstract boolean isValid();
 }

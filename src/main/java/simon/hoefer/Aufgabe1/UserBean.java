@@ -1,6 +1,7 @@
 package simon.hoefer.Aufgabe1;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -93,7 +94,7 @@ public class UserBean extends AbstractKomplexValidationBean implements Serializa
             super.setErrorMsg("Die beiden Passwörter sind leider nicht gleich.");
             return false;
         }
-        super.setErrorMsg(null);
+        resetErrorMsg();
         return true;
     }
 
@@ -102,4 +103,6 @@ public class UserBean extends AbstractKomplexValidationBean implements Serializa
         return new UserBean(this.username, this.name, this.firstname, this.address,
                 this.password, this.birthdate);
     }
+
+
 }

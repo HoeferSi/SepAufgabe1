@@ -2,6 +2,7 @@ package simon.hoefer.Aufgabe1;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.inject.spi.CDI;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -13,15 +14,19 @@ import java.io.Serializable;
 public class ProfilBean implements Serializable {
 
     @Inject
-    private UserServiceInterface userService;
-
-    private UserBean user;
+    private InterfaceInjectionService interfaceInjectionService;
 
     @Inject
     private FacesContext context;
 
+    private UserServiceInterface userService;
+
+    private UserBean user;
+
+
     @PostConstruct
     public void init() {
+        this.userService = interfaceInjectionService.getUserInterfaceService();
         this.user = userService.getCurrentUser().Clone();
     }
 
